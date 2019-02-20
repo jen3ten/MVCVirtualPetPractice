@@ -43,5 +43,15 @@ namespace MVCVirtualPetPractice.Tests
             Assert.Equal(3, model.Count());
         }
 
+        [Fact]
+        public void Details_Model_Has_Correct_Id()
+        {
+            var expectedId = 2;
+            var result = sut.Details(expectedId);
+            var model = (Pet)result.Model;
+
+            Assert.Equal(expectedId, model.Id);
+        }
+
     }
 }
