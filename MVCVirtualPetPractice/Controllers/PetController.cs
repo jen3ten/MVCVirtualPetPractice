@@ -10,7 +10,7 @@ namespace MVCVirtualPetPractice.Controllers
 {
     public class PetController : Controller
     {
-
+        // The was moved to the PetRepository
         //public List<Pet> pets = new List<Pet>()
         //{
         //    new Pet() {Id = 1, Name = "Fido"},
@@ -20,9 +20,15 @@ namespace MVCVirtualPetPractice.Controllers
 
         PetRepository petRepo;
 
-        public PetController()
+        public PetController(PetRepository petRepo)
         {
-            petRepo = new PetRepository();
+            // The code below depends on details of a lower level abstraction.  Instead  pass them in through the parameter
+            // petRepo = new PetRepository(new PetContext());
+            // our PetRespository constructor needs a db parameter.  If we did it this way each petRepo would create a separate connection to a database context.  This isn't the best way to do this.  We only want to create one and use the same one while the project is running.
+            // We need a way to use Dependency Inversion Principle.  Too many dependencies here.  Controller -> Repository -> Context -> etc.
+
+            this.petRepo = petRepo;
+
         }
 
         public ViewResult Index()

@@ -6,6 +6,7 @@ using MVCVirtualPetPractice.Controllers;
 using MVCVirtualPetPractice.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using MVCVirtualPetPractice.Repositories;
 
 namespace MVCVirtualPetPractice.Tests
 {
@@ -15,7 +16,13 @@ namespace MVCVirtualPetPractice.Tests
 
         public PetControllerTests()
         {
-            sut = new PetController();
+            //sut = new PetController(null);
+
+            // What about the code below?  This tests 3 units not one.  It is not a unit test.
+            // How do you test the Controller without testing the database?  Test in isolation.
+            var context = new PetContext();
+            var repo = new PetRepository(context);
+            sut = new PetController(repo);
         }
 
         [Fact]
