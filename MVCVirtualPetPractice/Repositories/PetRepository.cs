@@ -8,6 +8,8 @@ namespace MVCVirtualPetPractice.Repositories
 {
     public class PetRepository
     {
+        // Responsible for retrieving pet data
+
         public List<Pet> pets = new List<Pet>() {
             new Pet() {Id = 1, Name = "Fido"},
             new Pet() {Id = 2, Name = "Spot"},
