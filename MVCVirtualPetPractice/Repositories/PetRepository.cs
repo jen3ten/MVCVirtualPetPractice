@@ -42,5 +42,26 @@ namespace MVCVirtualPetPractice.Repositories
             return db.Pets.Single(pet => pet.Id == id);
             // This uses a lambda function and anonymous function to select a single pet where the following criteria exists, where the pet id is equal to the id we pass it
         }
+
+        public void Create(Pet pet)
+        {
+            db.Pets.Add(pet);
+            db.SaveChanges();
+        }
+
+        public void Delete(Pet pet)
+        {
+            db.Pets.Remove(pet);
+            db.SaveChanges();
+        }
+
+        public void Update(Pet pet)
+        {
+            db.Pets.Update(pet);
+            db.SaveChanges();
+        }
+
+
+
     }
 }
