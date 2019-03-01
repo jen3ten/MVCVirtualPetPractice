@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<MVCVirtualPetPractice.Models.Pet>
+
 @{
     Layout = null;
 }
@@ -9,8 +10,20 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/Main.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>My Pet Index View</h1>
+    <h1>Pet List</h1>
+    <p>
+        Here's all your pets.
+    </p>
+    <ol>
+        @foreach (var pet in Model)
+        {
+            <li><a href="/Pet/Details/@pet.Id">@pet.Name</a></li>
+        }
+    </ol>
+
+    @*<a href="/Pet/Create">Add a new pet</a>*@
 </body>
 </html>

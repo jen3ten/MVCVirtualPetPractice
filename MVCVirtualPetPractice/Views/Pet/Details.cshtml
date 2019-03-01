@@ -1,4 +1,5 @@
-﻿
+﻿@model MVCVirtualPetPractice.Models.Pet
+
 @{
     Layout = null;
 }
@@ -8,8 +9,22 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
+    <title>Pet Details for @Model.Name</title>
 </head>
 <body>
+    <h1>@Model.Name's Details</h1>
+    <p>@Model.Description</p>
+
+    @*<div>
+        <a href="/Pet/Edit/@Model.Id">
+            <input type="button" value="Edit Pet" class="btn btn-default" />
+        </a>
+    </div>
+    <div>
+        <a href="/Pet/Delete/@Model.Id">
+            <input type="button" value="DELETE Pet" class="btn btn-default" />
+        </a>
+    </div>*@
+    <a href="/Pet">Back to List</a>
 </body>
 </html>
