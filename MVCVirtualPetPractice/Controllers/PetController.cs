@@ -18,9 +18,9 @@ namespace MVCVirtualPetPractice.Controllers
         //    new Pet() {Id = 3, Name = "Bella"}
         //};
 
-        PetRepository petRepo;
+        IPetRepository petRepo;
 
-        public PetController(PetRepository petRepo)
+        public PetController(IPetRepository petRepo)
         {
             // The code below depends on details of a lower level abstraction.  Instead  pass them in through the parameter
             // petRepo = new PetRepository(new PetContext());

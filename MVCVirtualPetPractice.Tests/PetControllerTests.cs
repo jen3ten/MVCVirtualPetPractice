@@ -33,7 +33,7 @@ namespace MVCVirtualPetPractice.Tests
             Assert.IsType<ViewResult>(result);
         }
 
-        [Fact(Skip = "this doesn't work")]
+        [Fact]
         public void Index_Returns_Pet_Model_To_View()
         {
             var result = sut.Index();
@@ -53,6 +53,11 @@ namespace MVCVirtualPetPractice.Tests
         [Fact]
         public void Details_Model_Has_Correct_Id()
         {
+            //var context = new PetContext();
+            // var repo = new PetRepository(context);
+            var repo = new MockPetRepository();
+            var sut = new PetController(repo);
+
             var expectedId = 2;
             var result = sut.Details(expectedId);
             var model = (Pet)result.Model;
