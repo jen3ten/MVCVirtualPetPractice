@@ -6,7 +6,7 @@ using MVCVirtualPetPractice.Models;
 
 namespace MVCVirtualPetPractice.Repositories
 {
-    public class PetRepository
+    public class PetRepository : IPetRepository
     {
         // Responsible for retrieving pet data
 

@@ -33,7 +33,7 @@ namespace MVCVirtualPetPractice.Tests
             Assert.IsType<ViewResult>(result);
         }
 
-        [Fact(Skip = "this doesn't work")]
+        [Fact]
         public void Index_Returns_Pet_Model_To_View()
         {
             var result = sut.Index();
@@ -50,9 +50,18 @@ namespace MVCVirtualPetPractice.Tests
             Assert.Equal(3, model.Count());
         }
 
+        // This test uses the mock pet repository
         [Fact]
         public void Details_Model_Has_Correct_Id()
         {
+            // These 2 lines allow the test to interact with the database through the repository
+            // var context = new PetContext();
+            // var repo = new PetRepository(context);
+
+            // This line allows the test to interact with the Mock repository
+            var repo = new MockPetRepository();
+            var sut = new PetController(repo);
+
             var expectedId = 2;
             var result = sut.Details(expectedId);
             var model = (Pet)result.Model;
