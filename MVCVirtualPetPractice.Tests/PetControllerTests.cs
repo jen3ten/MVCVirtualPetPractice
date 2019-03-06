@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
+using NSubstitute;
+
 using MVCVirtualPetPractice.Controllers;
 using MVCVirtualPetPractice.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using MVCVirtualPetPractice.Repositories;
 
 namespace MVCVirtualPetPractice.Tests
@@ -13,15 +13,11 @@ namespace MVCVirtualPetPractice.Tests
     public class PetControllerTests
     {
         PetController sut;
+        private IPetRepository repo;
 
         public PetControllerTests()
         {
-            //sut = new PetController(null);
-
-            // What about the code below?  This tests 3 units not one.  It is not a unit test.
-            // How do you test the Controller without testing the database?  Test in isolation.
-            var context = new PetContext();
-            var repo = new PetRepository(context);
+            repo = Substitute.For<IPetRepository>();
             sut = new PetController(repo);
         }
 
@@ -42,27 +38,28 @@ namespace MVCVirtualPetPractice.Tests
         }
 
         [Fact]
-        public void Index_Model_Has_3_Pets()
+        public void Index_Model_Is_Expected_Model()
         {
+            var expectedModel = new List<Pet>();
+            repo.GetAll().Returns(expectedModel);
+
             var result = sut.Index(); // the ViewResult knows about the View and the Model
             var model = (IEnumerable<Pet>)result.Model; // We want to verify information about the Model
 
-            Assert.Equal(3, model.Count());
+            Assert.Equal(expectedModel, model);
         }
 
         [Fact]
-        public void Details_Model_Has_Correct_Id()
+        public void Details_Model_Is_Expected_Model()
         {
-            //var context = new PetContext();
-            // var repo = new PetRepository(context);
-            var repo = new MockPetRepository();
-            var sut = new PetController(repo);
-
             var expectedId = 2;
+            var expectedModel = new Pet();
+            repo.GetById(expectedId).Returns(expectedModel);
+
             var result = sut.Details(expectedId);
             var model = (Pet)result.Model;
 
-            Assert.Equal(expectedId, model.Id);
+            Assert.Equal(expectedModel, model);
         }
 
     }
